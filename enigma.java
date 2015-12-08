@@ -75,13 +75,13 @@ doublestep = false;
 }
  if (r1.getOffset() == r1.getRollover()) {
   r2.advance();
+ }
   if (r2.getOffset() == r2.getRollover()-1) {
    doublestep = true;
    }
   if (r2.getOffset() == r2.getRollover()) {
    r3.advance();
    }
-  }
 
 temp = plugboard.plugIn(temp);
 temp = r1.input(temp);
