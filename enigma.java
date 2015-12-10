@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 //TODO:
 // Allow user to rearrange and set rotors
 // Allow user to set plugboard
-// Implement rotors IV and V
 // Implement other rotors and reflectors.
 
 class Enigma {
@@ -29,7 +28,7 @@ r1.setCypher("EKMFLGDQVZNTOWYHXUSPAIBRCJ");
 r1.setOffset(0);
 r1.setRollover(17);
 r2.setCypher("AJDKSIRUXBLHWTMCQGZNPYFVOE");
-r2.setOffset(0);
+r2.setOffset(4);
 r2.setRollover(5);
 r3.setCypher("BDFHJLCPRTXVZNYEIWGAKMUSQO");
 r3.setOffset(0);
@@ -67,6 +66,10 @@ do {
 temp = input.charAt(i);
 if (Character.isLetter(temp)) {
 temp = Character.toUpperCase(temp);
+if (r2.getOffset() == r2.getRollover()-1) {
+   doublestep = true;
+   }
+
 r1.advance();
 if (doublestep) {
 r2.advance();
@@ -75,12 +78,10 @@ doublestep = false;
 }
  if (r1.getOffset() == r1.getRollover()) {
   r2.advance();
- }
-  if (r2.getOffset() == r2.getRollover()-1) {
-   doublestep = true;
-   }
-  if (r2.getOffset() == r2.getRollover()) {
+ 
+   if (r2.getOffset() == r2.getRollover()) {
    r3.advance();
+   }
    }
 
 temp = plugboard.plugIn(temp);
