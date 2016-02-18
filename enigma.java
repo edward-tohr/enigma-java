@@ -9,28 +9,16 @@ import java.io.InputStreamReader;
 
 
  class Enigma {
-	
-	   static final Rotor r1 = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ",0,17);
-	   static final Rotor r2 = new Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE",0,5);
-	   static final Rotor r3 = new Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO",0,22);
-	   static final Rotor r4 = new Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB",0,9);
-	   static final Rotor r5 = new Rotor("VZBRGITYUPSDNHLXAWMJQOFECK",0,0);
-	   static final Rotor ref1 = new Rotor("YRUHQSLDPXNGOKMIEBFZCWVJAT",0,0);
-
-
-
-   public static void main (String[]args) {
-	   
-	   Rotor rot1 = new Rotor(r1.getCypher(),r1.getOffset(),r1.getRollover());
-	   Rotor rot2 = new Rotor(r2.getCypher(),r2.getOffset(),r2.getRollover());
-	   Rotor rot3 = new Rotor(r3.getCypher(),r3.getOffset(),r3.getRollover());
-	   Rotor reflector = new Rotor(ref1.getCypher(),ref1.getOffset(),ref1.getRollover());
-	   Rotor plugboard = new Rotor();
+	 
+	   final Rotor r1 = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ",0,17);
+	   final Rotor r2 = new Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE",0,5);
+	   final Rotor r3 = new Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO",0,22);
+	   final Rotor r4 = new Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB",0,9);
+	   final Rotor r5 = new Rotor("VZBRGITYUPSDNHLXAWMJQOFECK",0,0);
+	   final Rotor ref1 = new Rotor("YRUHQSLDPXNGOKMIEBFZCWVJAT",0,0);
+ 
       
-      enigma(rot1, rot2, rot3, reflector, plugboard);
-   }
-      
-   static void enigma(Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
+   void enigma(Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
          char temp;
       int i = 0;
             boolean keep = true;
@@ -104,7 +92,7 @@ import java.io.InputStreamReader;
       }
    }
       
-   static void options(String input, Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
+   void options(String input, Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
 	 if (input.isEmpty()){
 		 enigma(rot1,rot2,rot3,reflector,plugboard);
 	 }
@@ -125,7 +113,7 @@ import java.io.InputStreamReader;
       }
    }
 
-   static void rotors(String input, Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
+   void rotors(String input, Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
    char temp = input.charAt(1);
       char newRotor = input.charAt(2);
       switch (temp){
@@ -221,7 +209,7 @@ import java.io.InputStreamReader;
    options(input, rot1, rot2, rot3, reflector, plugboard);
    }
 
-  static void positions(String input, Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
+  void positions(String input, Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
    // Determine which rotor by input.charAt(1), and parse 2 and 3 to determine where to set the rotor.
 	  char rotnum = input.charAt(1);
 	  int rotpos = Integer.parseInt(input.substring(2));
@@ -248,7 +236,7 @@ import java.io.InputStreamReader;
    }
    }
 
-   static void plugboards(String input) {
+   void plugboards(String input) {
    // Set up the plugboard settings based on the alphabetic string entered.
    // TODO: actually determine how to go about this. Pairs of letters separated by spaces? Seems easier than one big 20-character alphabet soup.
    
