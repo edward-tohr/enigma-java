@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 //TODO:
-// Allow user to rearrange and set rotors
 // Allow user to set plugboard
 // Implement other rotors and reflectors.
 
@@ -17,51 +16,18 @@ import java.io.InputStreamReader;
 	   static final Rotor r4 = new Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB",0,9);
 	   static final Rotor r5 = new Rotor("VZBRGITYUPSDNHLXAWMJQOFECK",0,0);
 	   static final Rotor ref1 = new Rotor("YRUHQSLDPXNGOKMIEBFZCWVJAT",0,0);
-	   
-	   //Plugboard isn't a rotor, but we can use the cypher to get the same effect.
-	   static Rotor pgbd = new Rotor();
+
 
 
    public static void main (String[]args) {
-	   String input = "test"; 
 	   
-	   Rotor rot1 = new Rotor();
-	   Rotor rot2 = new Rotor();
-	   Rotor rot3 = new Rotor();
-	   Rotor reflector = new Rotor();
+	   Rotor rot1 = new Rotor(r1.getCypher(),r1.getOffset(),r1.getRollover());
+	   Rotor rot2 = new Rotor(r2.getCypher(),r2.getOffset(),r2.getRollover());
+	   Rotor rot3 = new Rotor(r3.getCypher(),r3.getOffset(),r3.getRollover());
+	   Rotor reflector = new Rotor(ref1.getCypher(),ref1.getOffset(),ref1.getRollover());
 	   Rotor plugboard = new Rotor();
-
-      rot1.setCypher(r1.getCypher());
-      rot1.setRollover(r1.getRollover());
-      rot1.setOffset(r1.getOffset());
-      rot2.setCypher(r2.getCypher());
-      rot2.setRollover(r2.getRollover());
-      rot2.setOffset(r2.getOffset());
-      rot3.setCypher(r3.getCypher());
-      rot3.setRollover(r3.getRollover());
-      rot3.setOffset(r3.getOffset());
-      reflector.setCypher(ref1.getCypher());
       
-      try{
-            BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-           input = bufferRead.readLine();
-         
-         }
-         catch(IOException e)
-         {
-            e.printStackTrace();
-         }
-
-      char temp = input.charAt(0);
-      switch (temp) {
-      case '-':
-      input = input.substring(1);
-      options(input,rot1, rot2, rot3, reflector, plugboard);
-      break;
-      default:
       enigma(rot1, rot2, rot3, reflector, plugboard);
-      break;
-      }
    }
       
    static void enigma(Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
