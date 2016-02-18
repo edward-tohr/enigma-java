@@ -3,49 +3,42 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 //TODO:
-// Allow user to rearrange and set rotors
 // Allow user to set plugboard
 // Implement other rotors and reflectors.
 
+
+
 class Enigma {
+	
+	   static Rotor r1 = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ",0,17);
+	   static Rotor r2 = new Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE",0,5);
+	   static Rotor r3 = new Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO",0,22);
+	   static Rotor r4 = new Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB",0,9);
+	   static Rotor r5 = new Rotor("VZBRGITYUPSDNHLXAWMJQOFECK",0,0);
+	   static Rotor rfl = new Rotor("YRUHQSLDPXNGOKMIEBFZCWVJAT",0,0);
+	   
+	   //Plugboard isn't a rotor, but we can use the cypher to get the same effect.
+	   static Rotor pgbd = new Rotor();
+	   
+	   static Rotor rot1;
+	   static Rotor rot2;
+	   static Rotor rot3;
+	   static Rotor reflector;
+	   static Rotor plugboard;
 
-   public void main (String[]args) {
-      Rotor r1 = new Rotor();
-      Rotor r2 = new Rotor();
-      Rotor r3 = new Rotor();
-      Rotor r4 = new Rotor();
-      Rotor r5 = new Rotor();
-      Rotor rfl = new Rotor();
-   
-   //Plugboard isn't a rotor, but we can use the cypher to get the same effect.
-      Rotor pgbd = new Rotor();
-   
-   
-      r1.setCypher("EKMFLGDQVZNTOWYHXUSPAIBRCJ");
-      r1.setOffset(0);
-      r1.setRollover(17);
-      r2.setCypher("AJDKSIRUXBLHWTMCQGZNPYFVOE");
-      r2.setOffset(0);
-      r2.setRollover(5);
-      r3.setCypher("BDFHJLCPRTXVZNYEIWGAKMUSQO");
-      r3.setOffset(0);
-      r3.setRollover(22);
-      r4.setCypher("ESOVPZJAYQUIRHXLNFTGKDCMWB");
-      r4.setRollover(9);
-      r5.setCypher("VZBRGITYUPSDNHLXAWMJQOFECK");
-      r5.setRollover(0);
-      rfl.setCypher("YRUHQSLDPXNGOKMIEBFZCWVJAT");
+   public static void main (String[]args) {
+	   String input = "test";
    //plugboard.setCypher("ROSZPTIUGJKWMQBENACFHVLXYD");
-   //                   ABCDEFGHIJKLMNOPQRSTUVWXYZ
-   
+   //                     ABCDEFGHIJKLMNOPQRSTUVWXYZ
    
 
-      Rotor rot1 = r1;
-      Rotor rot2 = r2;
-      Rotor rot3 = r3;
-      Rotor reflector = rfl;
-      Rotor plugboard = pgbd;
-      String input = "test";
+	   
+
+      rot1 = r1;
+      rot2 = r2;
+      rot3 = r3;
+      reflector = rfl;
+      plugboard = pgbd;
       try{
             BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
            input = bufferRead.readLine();
@@ -56,18 +49,19 @@ class Enigma {
             e.printStackTrace();
          }
 
-      char temp = input.charAt(1);
+      char temp = input.charAt(0);
       switch (temp) {
       case '-':
+      input = input.substring(1);
       options(input);
       break;
       default:
-      enigma(rot1, rot2, rot3, rfl, pgbd);
+      enigma(rot1, rot2, rot3, reflector, plugboard);
       break;
       }
    }
       
-   void enigma(Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflect, Rotor plugboard) {
+   static void enigma(Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflect, Rotor plugboard) {
          char temp;
       int i = 0;
             boolean keep = true;
@@ -90,6 +84,10 @@ class Enigma {
             do {
             //for (int i = 0; i < input.length(); i++) {
                temp = input.charAt(i);
+               if (temp == '-'){
+            	   input = input.substring(1);
+            	   options(input);
+               }
                if (Character.isLetter(temp)) {
                   temp = Character.toUpperCase(temp);
                   if (rot2.getOffset() == rot2.getRollover()-1) {
@@ -137,50 +135,133 @@ class Enigma {
       }
    }
       
-   void options(String input) {
-     char temp = input.charAt(2);
+   static void options(String input) {
+	 if (input.isEmpty()){
+		 enigma(rot1,rot2,rot3,reflector,plugboard);
+	 }
+     char temp = input.charAt(0);
       switch (temp) {
          case 'r':
             rotors(input);
             break;
-         case '1':
-         case '2':
-         case '3':
+         case 'o':
             positions(input);
             break;
          case 'p':
             plugboards(input);
             break;
          default:
-         //enigma(rot1,rot2,rot3,rfl,pgbd); // TODO: inherit rot1, etc. from main().
+         enigma(rot1,rot2,rot3,reflector,plugboard); 
          break;
       }
    }
 
-   void rotors(String input) {
-   char temp = input.charAt(3);
-      char newRotor = input.charAt(4);
+   static void rotors(String input) {
+   char temp = input.charAt(1);
+      char newRotor = input.charAt(2);
       switch (temp){
          case '1':
-         // Set rot1 according to newRotor.
+        	 switch(newRotor){
+        	 case '1':
+        		 rot1 = r1;
+        		 break;
+        	 case '2':
+        		 rot1 = r2;
+        		 break;
+        	 case '3':
+        		 rot1 = r3;
+        		 break;
+        	 case '4':
+        		 rot1 = r4;
+        		 break;
+        	 case '5':
+        		 rot1 = r5;
+        		 break;
+             default:
+             rot1 = r1;
+             break;
+        	 }
          break;
          case '2':
+        	 switch(newRotor){
+        	 case '1':
+        		 rot2 = r1;
+        		 break;
+        	 case '2':
+        		 rot2 = r2;
+        		 break;
+        	 case '3':
+        		 rot2 = r3;
+        		 break;
+        	 case '4':
+        		 rot2 = r4;
+        		 break;
+        	 case '5':
+        		 rot2 = r5;
+        		 break;
+             default:
+             rot2 = r2;
+             break;
+        	 }
          break;
          case '3':
+        	 switch(newRotor){
+        	 case '1':
+        		 rot3 = r1;
+        		 break;
+        	 case '2':
+        		 rot3 = r2;
+        		 break;
+        	 case '3':
+        		 rot3 = r3;
+        		 break;
+        	 case '4':
+        		 rot3 = r4;
+        		 break;
+        	 case '5':
+        		 rot3 = r5;
+        		 break;
+             default:
+             rot1 = r3;
+             break;
+        	 }
          break;
          default:
          break;
          
       }
-   
+   input = input.substring(3);
+   options(input);
    }
 
-   void positions(String input) {
-   // Determine which rotor by input.charAt(3), and parse 4 and 5 to determine where to set the rotor.
-   
+  static void positions(String input) {
+   // Determine which rotor by input.charAt(1), and parse 2 and 3 to determine where to set the rotor.
+	  char rotnum = input.charAt(1);
+	  int rotpos = Integer.parseInt(input.substring(2));
+	  
+	  
+	  switch(rotnum){
+	  case '1':
+		  rot1.setOffset(rotpos);
+		  break;
+	  case '2':
+		  rot2.setOffset(rotpos);
+		  break;
+	  case '3':
+		  rot3.setOffset(rotpos);
+		  break;
+	  default:
+		  break;			 
+	  
+	  }
+   if (rotpos < 10){
+	   options(input.substring(2));
+   } else {
+	   options(input.substring(3));
+   }
    }
 
-   void plugboards(String input) {
+   static void plugboards(String input) {
    // Set up the plugboard settings based on the alphabetic string entered.
    // TODO: actually determine how to go about this. Pairs of letters separated by spaces? Seems easier than one big 20-character alphabet soup.
    
