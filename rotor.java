@@ -3,7 +3,7 @@ class Rotor {
 String cypher = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 //The alphabet. Only here to look up letter offsets.
-String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+static final String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
 
 //Offset ranges from 0-25, and cooresponds to the rotor setting.
 int offset = 0;
