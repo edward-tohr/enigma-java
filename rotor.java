@@ -11,6 +11,21 @@ int offset = 0;
 //The index at which the rotor advances the next rotor over.   
 int rollover = 0;    
 
+//Whoops, should probably make the constructors that the other classes use.
+public Rotor(){
+}
+
+public Rotor(String cyp) {
+cypher = cyp;
+}
+
+public Rotor(String cyp, int ofs, int rol) {
+cypher = cyp;
+offset = ofs;
+rollover = rol;
+}
+
+
 void advance(){
 // Advances rotor by one step. Click!
 // if offset goes beyond 25, it wraps back around to 0.
