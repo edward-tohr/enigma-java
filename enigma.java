@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
 	   final Rotor r4 = new Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB",0,9);
 	   final Rotor r5 = new Rotor("VZBRGITYUPSDNHLXAWMJQOFECK",0,0);
 	   final Rotor ref1 = new Rotor("YRUHQSLDPXNGOKMIEBFZCWVJAT",0,0);
-	   Rotor plugb = new Rotor();
+  	   final Rotor plugb = new Rotor("ABCDEFGHIJKLMNOPQRSTUVWXYZ",0,0);
  
       
    void enigma(Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
@@ -106,7 +106,7 @@ import java.io.InputStreamReader;
             positions(input, rot1, rot2, rot3, reflector, plugboard);
             break;
          case 'p':
-            plugboards(input);
+            plugboards(input, rot1, rot2, rot3, reflector, plugboard);
             break;
          default:
          enigma(rot1,rot2,rot3,reflector,plugboard); 
@@ -237,9 +237,33 @@ import java.io.InputStreamReader;
    }
    }
 
-   void plugboards(String input) {
+   void plugboards(String input, Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
+	   input = input.substring(1);
    // Set up the plugboard settings based on the alphabetic string entered.
    // TODO: actually determine how to go about this. Pairs of letters separated by spaces? Seems easier than one big 20-character alphabet soup.
+   if (input.length() % 2 != 0) { //First off, make sure there's an even number of letters.
+     enigma(rot1,rot2,rot3,reflector,plugboard);
+   } else{
+	   char pair1;
+	   char pair2;
+	   int charPos = 0;
+   		   StringBuilder plugcypher = new StringBuilder(Rotor.alpha);
+	   for (int i = 0; i < input.length()-1; i+=2){
+		   
+
+		   pair1 = input.charAt(i);
+         if (pair1 == '-') {
+         options(input.substring(i+1),rot1,rot2,rot3,reflector,plugboard);
+         }
+		   pair2 = input.charAt(i+1);
+		   charPos = plugboard.cypher.indexOf(pair1);
+		   plugcypher.setCharAt(charPos,pair2);
+		   charPos = plugboard.cypher.indexOf(pair2);
+		   plugcypher.setCharAt(charPos,pair1);
+	   }
+	   plugboard.setCypher(plugcypher.toString());
+	   enigma(rot1,rot2,rot3,reflector,plugboard);
+   }
    
    }
 
