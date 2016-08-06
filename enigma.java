@@ -2,9 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-//TODO:
-// Allow user to set plugboard
-// Implement other rotors and reflectors.
 
 
 
@@ -244,7 +241,6 @@ import java.io.InputStreamReader;
    void plugboards(String input, Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
 	   input = input.substring(1);
    // Set up the plugboard settings based on the alphabetic string entered.
-   // TODO: actually determine how to go about this. Pairs of letters separated by spaces? Seems easier than one big 20-character alphabet soup.
    if (input.length() % 2 != 0) { //First off, make sure there's an even number of letters.
      enigma(rot1,rot2,rot3,reflector,plugboard);
    } else{
