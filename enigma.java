@@ -19,7 +19,7 @@ import java.io.InputStreamReader;
   	   final Rotor plugb = new Rotor("ABCDEFGHIJKLMNOPQRSTUVWXYZ",0,0);
  
       
-   void enigma(Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
+   boolean enigma(Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
          char temp;
       int i = 0;
             boolean keep = true;
@@ -44,6 +44,9 @@ import java.io.InputStreamReader;
                temp = input.charAt(i);
                if (temp == '-'){
             	   input = input.substring(1);
+		   if (input.charAt(0) == 'q'){
+		   return false;
+		   }
             	   options(input,rot1, rot2, rot3, reflector, plugboard);
                }
                if (Character.isLetter(temp)) {
@@ -91,6 +94,7 @@ import java.io.InputStreamReader;
          
          }
       }
+      return true;
    }
       
    void options(String input, Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
