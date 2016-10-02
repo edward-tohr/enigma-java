@@ -7,16 +7,19 @@ import java.io.InputStreamReader;
 
  class Enigma {
 	 
-	   final Rotor r1 = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ",0,17);
-	   final Rotor r2 = new Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE",0,5);
-	   final Rotor r3 = new Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO",0,22);
-	   final Rotor r4 = new Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB",0,9);
-	   final Rotor r5 = new Rotor("VZBRGITYUPSDNHLXAWMJQOFECK",0,0);
-	   final Rotor ref1 = new Rotor("YRUHQSLDPXNGOKMIEBFZCWVJAT",0,0);
-  	   final Rotor plugb = new Rotor("ABCDEFGHIJKLMNOPQRSTUVWXYZ",0,0);
+	   final Rotor r1 = new Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ",0,17,"1");
+	   final Rotor r2 = new Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE",0,5,"2");
+	   final Rotor r3 = new Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO",0,22,"3");
+	   final Rotor r4 = new Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB",0,9,"4");
+	   final Rotor r5 = new Rotor("VZBRGITYUPSDNHLXAWMJQOFECK",0,0,"5");
+	   final Rotor ref1 = new Rotor("YRUHQSLDPXNGOKMIEBFZCWVJAT",0,0,"reflector");
+  	   final Rotor plugb = new Rotor("ABCDEFGHIJKLMNOPQRSTUVWXYZ",0,0,"plugboard");
  
       
    boolean enigma(Rotor rot1, Rotor rot2, Rotor rot3, Rotor reflector, Rotor plugboard) {
+   	System.out.print("Rotor 1: " + rot1.getName() + "("+ rot1.getOffset()+")\n");
+   	System.out.print("Rotor 2: " + rot2.getName() + "("+ rot2.getOffset()+")\n");
+   	System.out.print("Rotor 3: " + rot3.getName() + "("+ rot3.getOffset()+")\n");
          char temp;
       int i = 0;
             boolean keep = true;
@@ -41,9 +44,6 @@ import java.io.InputStreamReader;
                temp = input.charAt(i);
                if (temp == '-'){
             	   input = input.substring(1);
-		   if (input.charAt(0) == 'q'){
-		   return false;
-		   }
             	   options(input,rot1, rot2, rot3, reflector, plugboard);
                }
                if (Character.isLetter(temp)) {
@@ -109,6 +109,8 @@ import java.io.InputStreamReader;
          case 'p':
             plugboards(input, rot1, rot2, rot3, reflector, plugboard);
             break;
+	 case 'q':
+	    quit();
          default:
          enigma(rot1,rot2,rot3,reflector,plugboard); 
          break;
@@ -124,26 +126,34 @@ import java.io.InputStreamReader;
         	 case '1':
         		 rot1.setCypher(r1.getCypher());
         		 rot1.setRollover(r1.getRollover());
+			 rot1.setName(r1.getName());
         		 break;
         	 case '2':
         		 rot1.setCypher(r2.getCypher());
         		 rot1.setRollover(r2.getRollover());
+			 rot1.setName(r2.getName());
         		 break;
         	 case '3':
         		 rot1.setCypher(r3.getCypher());
         		 rot1.setRollover(r3.getRollover());
+			 rot1.setName(r3.getName());
         		 break;
         	 case '4':
         		 rot1.setCypher(r4.getCypher());
         		 rot1.setRollover(r4.getRollover());
+			 rot1.setName(r4.getName());
+
         		 break;
         	 case '5':
         		 rot1.setCypher(r5.getCypher());
         		 rot1.setRollover(r5.getRollover());
+			 rot1.setName(r5.getName());
+
         		 break;
              default:
             	 rot1.setCypher(r1.getCypher());
             	 rot1.setRollover(r1.getRollover());
+		 rot1.setName(r1.getName()); 
              break;
         	 }
          break;
@@ -152,26 +162,32 @@ import java.io.InputStreamReader;
         	 case '1':
         		 rot2.setCypher(r1.getCypher());
         		 rot2.setRollover(r1.getRollover());
+			 rot2.setName(r1.getName());
         		 break;
         	 case '2':
         		 rot2.setCypher(r2.getCypher());
         		 rot2.setRollover(r2.getRollover());
+			 rot2.setName(r2.getName());
         		 break;
         	 case '3':
         		 rot2.setCypher(r3.getCypher());
         		 rot2.setRollover(r3.getRollover());
+			 rot2.setName(r3.getName()); 
         		 break;
         	 case '4':
         		 rot2.setCypher(r4.getCypher());
         		 rot2.setRollover(r4.getRollover());
+			 rot2.setName(r4.getName());
         		 break;
         	 case '5':
         		 rot2.setCypher(r5.getCypher());
         		 rot2.setRollover(r5.getRollover());
+			 rot2.setName(r5.getName());
         		 break;
              default:
             	 rot2.setCypher(r2.getCypher());
             	 rot2.setRollover(r2.getRollover());
+		 rot2.setName(r2.getName());
              break;
         	 }
          break;
@@ -180,26 +196,32 @@ import java.io.InputStreamReader;
         	 case '1':
         		 rot3.setCypher(r1.getCypher());
         		 rot3.setRollover(r1.getRollover());
+			 rot3.setName(r1.getName());
         		 break;
         	 case '2':
         		 rot3.setCypher(r2.getCypher());
         		 rot3.setRollover(r2.getRollover());
+			 rot3.setName(r2.getName());
         		 break;
         	 case '3':
         		 rot3.setCypher(r3.getCypher());
         		 rot3.setRollover(r3.getRollover());
+			 rot3.setName(r3.getName());
         		 break;
         	 case '4':
         		 rot3.setCypher(r4.getCypher());
         		 rot3.setRollover(r4.getRollover());
+			 rot3.setName(r4.getName()); 
         		 break;
         	 case '5':
         		 rot3.setCypher(r5.getCypher());
         		 rot3.setRollover(r5.getRollover());
+			 rot3.setName(r5.getName());
         		 break;
              default:
             	 rot3.setCypher(r3.getCypher());
             	 rot3.setRollover(r3.getRollover());
+		 rot3.setName(r3.getName());
              break;
         	 }
          break;
@@ -265,6 +287,10 @@ import java.io.InputStreamReader;
 	   enigma(rot1,rot2,rot3,reflector,plugboard);
    }
    
+   }
+
+   void quit(){
+   System.exit(0);
    }
 
 }

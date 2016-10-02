@@ -2,6 +2,9 @@ class Rotor {
 //The simple cypher each rotor performs.
 String cypher = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+//Rotor needs a name for ID purposes.
+String name;
+
 //The alphabet. Only here to look up letter offsets.
 static final String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
 
@@ -19,10 +22,18 @@ public Rotor(String cyp) {
 cypher = cyp;
 }
 
-public Rotor(String cyp, int ofs, int rol) {
+public Rotor(String cyp, int ofs, int rol, String id) {
 cypher = cyp;
 offset = ofs;
 rollover = rol;
+name = id;
+}
+
+public Rotor(Rotor base) {
+cypher = base.getCypher();
+offset = base.getOffset();
+rollover = base.getRollover();
+name = base.getName();
 }
 
 
@@ -87,6 +98,14 @@ void setRollover(int i) {
 rollover = i;
 }
 
+String getName(){
+return name;
+}
+
+void setName(String id){
+name = id;
+}
+
 int getOffset(){
 return offset;
 }
@@ -119,6 +138,8 @@ System.out.print(cypher.charAt((i+offset)%26));
 }
 System.out.print("\n");
 }
+
+
 
 
 
